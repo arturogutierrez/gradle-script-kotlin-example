@@ -1,3 +1,5 @@
+import org.gradle.script.lang.kotlin.applyFrom
+import org.gradle.script.lang.kotlin.extra
 import org.gradle.script.lang.kotlin.repositories
 
 buildscript {
@@ -7,7 +9,12 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:2.3.2")
+        applyFrom("dependencies.gradle.kts")
+
+        val projectConfiguration: ProjectConfiguration by extra
+
+        classpath(projectConfiguration.buildPlugins.androidGradle)
+        classpath(projectConfiguration.buildPlugins.kotlinGradlePlugin)
     }
 }
 
